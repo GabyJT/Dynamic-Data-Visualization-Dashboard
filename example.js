@@ -1,3 +1,4 @@
+// U54107257
 document.addEventListener('DOMContentLoaded', () => {
     d3.csv('data/mock_stock_data.csv').then(data => {
         // Convert date strings to Date objects and values to numbers
