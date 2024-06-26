@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function createVisualization(data) {
-    const margin = {top: 20, right: 30, bottom: 30, left: 40};
-    const width = 600 - margin.left - margin.right;
+    const margin = {top: 20, right: 30, bottom: 50, left: 50};
+    const width = 800 - margin.left - margin.right;
     const height = 600 - margin.top - margin.bottom;
 
     // Set up the SVG element
@@ -55,12 +55,15 @@ function createVisualization(data) {
         .nice()
         .range([height, 0]);
 
-    const xAxis = d3.axisBottom(x);
+    const xAxis = d3.axisBottom(x).tickFormat(d3.timeFormat("%b %d, %Y"));
     const yAxis = d3.axisLeft(y);
 
     svg.append('g')
         .attr('transform', `translate(0,${height})`)
         .call(xAxis);
+        .selectAll("text")
+        .attr("transform", "rotate(-45)")
+        .style("text-anchor", "end");
 
     svg.append('g')
         .call(yAxis);
@@ -96,7 +99,7 @@ function createVisualization(data) {
                 .style('left', (event.pageX + 5) + 'px')
                 .style('top', (event.pageY - 28) + 'px');
         })
-        .on('mouseout', (event, d) => {
+        .on('mouseout', () => {
             tooltip.transition()
                 .duration(500)
                 .style('opacity', 0);
